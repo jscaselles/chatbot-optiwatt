@@ -328,6 +328,11 @@ body::before {
     box-shadow: 0 2px 8px var(--shadow);
 }
 
+.message-text {
+    font-size: 15px;
+    color: inherit;
+}
+
 .message.user .message-bubble {
     background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-darker) 100%);
     color: var(--white);
@@ -351,6 +356,17 @@ body::before {
 
 .message-bubble p:last-child {
     margin-bottom: 0;
+}
+
+.optiwatt-warning {
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: #ffe5e5;
+    border: 1px solid #ff9b9b;
+    color: #7a1c1c;
+    font-size: 13px;
+    line-height: 1.4;
 }
 
 /* Typing Indicator */

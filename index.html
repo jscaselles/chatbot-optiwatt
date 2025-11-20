@@ -5,95 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OptiWatt - Asistente Energético</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="optiwatt-widget.css">
 </head>
 <body>
-    <!-- Pantalla de Carga con Logo -->
-    <div class="splash-screen" id="splashScreen">
-        <div class="splash-content">
-            <img src="logo.jpeg" alt="OptiWatt Logo" class="splash-logo">
-            <div class="splash-loader">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </div>
-
-    <div class="container" id="mainContainer" style="display: none;">
-        <!-- Header -->
-        <header class="chat-header">
-            <div class="header-content">
-                <div class="logo-container">
-                    <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" fill="currentColor"/>
-                    </svg>
-                    <h1>OptiWatt</h1>
-                    <span class="subtitle">Asistente Energético</span>
-                </div>
-            </div>
-        </header>
-
-        <!-- Chat Container -->
-        <div class="chat-container" id="chatContainer">
-            <div class="welcome-message">
-                <div class="welcome-icon">🌱</div>
-                <p>¡Hola! Soy OptiWatt Assistant, tu asistente en eficiencia energética para salones de clase.</p>
-                <p>¿En qué puedo ayudarte hoy?</p>
-            </div>
-            
-            <!-- Preguntas Frecuentes -->
-            <div class="faq-section" id="faqSection">
-                <h3 class="faq-title">💡 Preguntas Frecuentes</h3>
-                <div class="faq-buttons">
-                    <button class="faq-btn" data-question="¿Cómo puedo ahorrar energía en mi salón?">
-                        ⚡ Ahorrar energía en el salón
-                    </button>
-                    <button class="faq-btn" data-question="¿Qué puedo hacer para usar mejor la iluminación del aula?">
-                        💡 Mejor uso de la iluminación
-                    </button>
-                    <button class="faq-btn" data-question="¿Cómo puedo ayudar a mantener fresco el salón sin aire acondicionado?">
-                        🌬️ Ventilación natural
-                    </button>
-                    <button class="faq-btn" data-question="¿Qué temperatura es mejor para estudiar en el salón?">
-                        🌡️ Temperatura ideal
-                    </button>
-                    <button class="faq-btn" data-question="¿Cómo puedo usar los equipos del salón de forma más eficiente?">
-                        💻 Uso eficiente de equipos
-                    </button>
-                    <button class="faq-btn" data-question="¿Qué hábitos puedo adoptar para ahorrar energía en el salón?">
-                        📚 Hábitos de ahorro
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Typing Indicator -->
-        <div class="typing-indicator" id="typingIndicator" style="display: none;">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span class="typing-text">OptiWatt está escribiendo...</span>
-        </div>
-
-        <!-- Input Area -->
-        <div class="input-area">
-            <input 
-                type="text" 
-                id="userInput" 
-                placeholder="Escribe tu pregunta sobre eficiencia energética..."
-                autocomplete="off"
-            >
-            <button id="sendButton" class="send-button">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </button>
-        </div>
-
-    </div>
-
+    
     <script src="splash.js"></script>
     <script src="script.js"></script>
+    <div id="optiwatt-widget"></div>
+    <script src="optiwatt-widget.js"></script>
 </body>
 </html>
 

@@ -12,6 +12,8 @@ const SYSTEM_PROMPT = `ESTILO DE RESPUESTA:
 - Mantén un tono dinámico y fácil de leer.
 - Cuando respondas listas, hazlas visualmente atractivas con emojis y separadores.
 - Si el usuario pide mostrar código, muéstralo únicamente como texto plano sin marcas de formato.
+- Debes ser conciso: máximo 6 frases o viñetas breves y evita saturar con datos innecesarios.
+- Prioriza recomendaciones accionables y claras resumiendo ideas extensas.
 
 Confirma que entendiste estas reglas y síguelas SIEMPRE.
 
@@ -31,28 +33,40 @@ const userInput = document.getElementById('userInput');
 const sendButton = document.getElementById('sendButton');
 const typingIndicator = document.getElementById('typingIndicator');
 const faqSection = document.getElementById('faqSection');
+const WARNING_MESSAGE = "OptiWatt puede cometer errores. Verifica siempre la información importante antes de aplicarla.";
+let greetingCounter = 0;
+
+window.OptiWattConfig = {
+  ...(window.OptiWattConfig || {}),
+  apiKey: API_KEY,
+  model: MODEL,
+  systemPrompt: SYSTEM_PROMPT
+};
 
 function removeWelcome() {
+  if (!chatContainer) return;
   const welcome = chatContainer.querySelector('.welcome-message');
   if (welcome) welcome.remove();
 }
 
 function hideFAQ() {
-  if (faqSection) {
-    faqSection.classList.add('hidden');
-  }
+  if (!faqSection) return;
+  faqSection.classList.add('hidden');
 }
 
 function showTyping() {
+  if (!typingIndicator || !chatContainer) return;
   typingIndicator.style.display = 'flex';
   chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
 function hideTyping() {
+  if (!typingIndicator) return;
   typingIndicator.style.display = 'none';
 }
 
 function addUserMessage(text) {
+  if (!chatContainer) return;
   removeWelcome();
   hideFAQ();
   const div = document.createElement('div');
@@ -62,14 +76,86 @@ function addUserMessage(text) {
   chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
-function addBotMessage(text) {
+function sanitizeBotGreeting(text = "") {
+  const normalized = text.replace(/\r/g, '');
+  if (greetingCounter === 0) {
+    greetingCounter += 1;
+    return normalized;
+  }
+
+  const lines = normalized.split('\n');
+  const filtered = [];
+  let greetingRemoved = false;
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    const isGreeting = trimmed && /^[¡!¿?]*\s*(hola|buenas|saludos|hey|qué tal)/i.test(trimmed);
+    if (!greetingRemoved && isGreeting) {
+      greetingRemoved = true;
+      continue;
+    }
+    filtered.push(line);
+  }
+
+  const candidate = filtered.join('\n').trim();
+  greetingCounter += 1;
+  return candidate.length ? filtered.join('\n').replace(/^\s+/, '') : normalized;
+}
+
+function createWarningElement() {
+  const warning = document.createElement('div');
+  warning.className = 'optiwatt-warning';
+  warning.textContent = WARNING_MESSAGE;
+  return warning;
+}
+
+function typewriterEffect(target, text, speed = 10) {
+  return new Promise(resolve => {
+    if (!text) {
+      resolve();
+      return;
+    }
+    let index = 0;
+    const characters = Array.from(text);
+
+    function typeNext() {
+      if (index >= characters.length) {
+        resolve();
+        return;
+      }
+      const char = characters[index];
+      if (char === '\n') {
+        target.appendChild(document.createElement('br'));
+      } else {
+        target.append(char);
+      }
+      index += 1;
+      if (chatContainer) {
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+      }
+      setTimeout(typeNext, speed);
+    }
+
+    typeNext();
+  });
+}
+
+async function addBotMessage(text) {
+  if (!chatContainer) return;
   removeWelcome();
   hideFAQ();
   const div = document.createElement('div');
   div.className = 'message bot';
-  const formatted = text.replace(/\n/g, '<br>');
-  div.innerHTML = `<div class="message-bubble"><p>${formatted}</p></div>`;
+  const bubble = document.createElement('div');
+  bubble.className = 'message-bubble';
+  const content = document.createElement('div');
+  content.className = 'message-text';
+  bubble.appendChild(content);
+  div.appendChild(bubble);
   chatContainer.appendChild(div);
+  const sanitized = sanitizeBotGreeting(text);
+  await typewriterEffect(content, sanitized);
+  bubble.appendChild(createWarningElement());
   chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
@@ -104,16 +190,16 @@ async function sendMessage(userMessage) {
 
     if (data.error) {
       hideTyping();
-      addBotMessage("❌ Error: " + data.error.message);
+      await addBotMessage("❌ Error: " + data.error.message);
     } else {
       const botText = data.candidates?.[0]?.content?.parts?.[0]?.text || "No se recibió respuesta";
       hideTyping();
-      addBotMessage(botText);
+      await addBotMessage(botText);
     }
 
   } catch (err) {
     hideTyping();
-    addBotMessage("❌ Error de conexión: " + err.message);
+    await addBotMessage("❌ Error de conexión: " + err.message);
   }
 
   userInput.disabled = false;

@@ -1,0 +1,225 @@
+.optiwatt-widget {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9990;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.optiwatt-widget__fab {
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, #45c48a 0%, #1f8d60 100%);
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 25px rgba(31, 141, 96, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.optiwatt-widget--open .optiwatt-widget__fab {
+    opacity: 0;
+    transform: scale(0.85);
+    pointer-events: none;
+}
+
+.optiwatt-widget__fab svg {
+    width: 28px;
+    height: 28px;
+}
+
+.optiwatt-widget__fab:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(31, 141, 96, 0.45);
+}
+
+.optiwatt-widget__window {
+    width: 320px;
+    max-height: 520px;
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 18px 55px rgba(16, 34, 52, 0.25);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: absolute;
+    bottom: 80px;
+    right: 0;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(15px) scale(0.98);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.optiwatt-widget--open .optiwatt-widget__window {
+    bottom: 0;
+}
+
+.optiwatt-widget__window--open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+}
+
+.optiwatt-widget__header {
+    background: linear-gradient(135deg, #2f9462 0%, #1a5e3b 100%);
+    color: #ffffff;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.optiwatt-widget__title {
+    font-size: 18px;
+    font-weight: 700;
+    display: block;
+}
+
+.optiwatt-widget__subtitle {
+    font-size: 12px;
+    opacity: 0.75;
+}
+
+.optiwatt-widget__close {
+    border: none;
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.optiwatt-widget__close:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.optiwatt-widget__messages {
+    flex: 1;
+    padding: 18px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: #f6f9f7;
+}
+
+.optiwatt-widget__bubble {
+    max-width: 85%;
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-size: 14px;
+    line-height: 1.45;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.optiwatt-widget__bubble span {
+    display: inline;
+}
+
+.optiwatt-widget__bubble--user {
+    align-self: flex-end;
+    background: linear-gradient(135deg, #45c48a 0%, #1f8d60 100%);
+    color: #ffffff;
+    border-bottom-right-radius: 4px;
+}
+
+.optiwatt-widget__bubble--bot {
+    align-self: flex-start;
+    background: #ffffff;
+    color: #144430;
+    border: 1px solid #d5ede1;
+    border-bottom-left-radius: 4px;
+}
+
+.optiwatt-widget__warning {
+    margin-top: 10px;
+}
+
+.optiwatt-widget__input {
+    display: flex;
+    gap: 10px;
+    padding: 14px 18px 18px;
+    border-top: 1px solid #ecf2ee;
+    background: #ffffff;
+}
+
+.optiwatt-widget__input-field {
+    flex: 1;
+    border-radius: 20px;
+    border: 1px solid #d5ede1;
+    padding: 10px 14px;
+    font-size: 14px;
+    outline: none;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+.optiwatt-widget__input-field:focus {
+    border-color: #3cb77f;
+    box-shadow: 0 0 0 3px rgba(60, 183, 127, 0.15);
+}
+
+.optiwatt-widget__send {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: #2f9462;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.optiwatt-widget__send:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.optiwatt-widget__send svg {
+    width: 18px;
+    height: 18px;
+}
+
+.optiwatt-widget__send:hover:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+.optiwatt-widget__typing {
+    font-size: 12px;
+    color: #3b6f56;
+    padding: 0 18px 10px;
+}
+
+.optiwatt-warning {
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: #ffe5e5;
+    border: 1px solid #ff9b9b;
+    color: #7a1c1c;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+@media (max-width: 480px) {
+    .optiwatt-widget {
+        bottom: 16px;
+        right: 16px;
+    }
+
+    .optiwatt-widget__window {
+        width: min(92vw, 360px);
+        right: -8px;
+    }
+}
+
