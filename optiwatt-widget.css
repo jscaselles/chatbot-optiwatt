@@ -75,6 +75,12 @@
     gap: 12px;
 }
 
+.optiwatt-widget__header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 .optiwatt-widget__title {
     font-size: 18px;
     font-weight: 700;
@@ -86,7 +92,8 @@
     opacity: 0.75;
 }
 
-.optiwatt-widget__close {
+.optiwatt-widget__close,
+.optiwatt-widget__faq-btn {
     border: none;
     background: rgba(255, 255, 255, 0.15);
     color: #ffffff;
@@ -95,10 +102,84 @@
     height: 28px;
     cursor: pointer;
     transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
 }
 
-.optiwatt-widget__close:hover {
+.optiwatt-widget__close:hover,
+.optiwatt-widget__faq-btn:hover {
     background: rgba(255, 255, 255, 0.25);
+}
+
+.optiwatt-widget__faq-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.optiwatt-widget__faq-panel {
+    background: #ffffff;
+    border-bottom: 1px solid #ecf2ee;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.optiwatt-widget__faq-header {
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f6f9f7;
+    border-bottom: 1px solid #ecf2ee;
+    font-weight: 600;
+    font-size: 13px;
+    color: #144430;
+}
+
+.optiwatt-widget__faq-close {
+    border: none;
+    background: transparent;
+    color: #144430;
+    font-size: 20px;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.optiwatt-widget__faq-close:hover {
+    background: rgba(20, 68, 48, 0.1);
+}
+
+.optiwatt-widget__faq-list {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.optiwatt-widget__faq-item {
+    padding: 10px 14px;
+    border: none;
+    background: #f6f9f7;
+    border-radius: 8px;
+    text-align: left;
+    font-size: 13px;
+    color: #144430;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+}
+
+.optiwatt-widget__faq-item:hover {
+    background: #e8f5ed;
+    border-color: #d5ede1;
+    transform: translateX(2px);
 }
 
 .optiwatt-widget__messages {
@@ -145,10 +226,53 @@
 
 .optiwatt-widget__input {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     padding: 14px 18px 18px;
     border-top: 1px solid #ecf2ee;
     background: #ffffff;
+    align-items: center;
+}
+
+.optiwatt-widget__voice-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid #d5ede1;
+    background: #ffffff;
+    color: #2f9462;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.optiwatt-widget__voice-btn:hover {
+    background: #f6f9f7;
+    border-color: #3cb77f;
+}
+
+.optiwatt-widget__voice-btn--active {
+    background: #ffe5e5;
+    border-color: #ff9b9b;
+    color: #d32f2f;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.optiwatt-widget__voice-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
 }
 
 .optiwatt-widget__input-field {
